@@ -53,15 +53,13 @@ function attachChangeEventToLayerInput(layerName) {
   $('#select_layers_' + layerName).on('change', function() {
     alert("WE are at this point")
     var num_layers_to_show = parseInt(this.value);
-    var layers = $('.layer_' + layerName + '_input')
-    for (var i = 0; i < layers.length; i++) {
+    var layers = $('.layer_' + layerName + '_input');
+    for (var i = layers.length; i > 0; i--) {
       var layer = $(layers[i]);
       if (i < num_layers_to_show) {
         layer.show();
-        alert("WE are at the second point")
         $('input', layer).prop('disabled', false);
       } else {
-        alert("WE are at the third point")
         layer.hide();
         $('input', layer).prop('disabled', true);
       }
@@ -71,8 +69,10 @@ function attachChangeEventToLayerInput(layerName) {
 
 
 $(document).ready(function() {
+  //debugger;
+  var select_layer = $("#select_layers_above");
+  console.log(select_layer);
   attachChangeEventToLayerInput('above');
-  attachChangeEventToLayerInput('below');
 })
 
 
@@ -85,20 +85,13 @@ function validateForm() {
     errors.push("Width of trace (S) must be an number");
   }
 
-  var layers_permittivity = $('input[name=layers_heights]').value;
-  for (var i in layers_permittivity) {
-    if (isNaN(parseInt(layers_permittivity[i]))) {
-      errors.push("Relative Permittivity of each layer must be an number");
-    }
-  }
-
-  var layers_heights = document.forms.getlist["myform"]["layers_heights"].value;
-  console.log(layers_heights)
-  ($('input[name=select_option]').each(
-    if (isNaN(parseInt(layers_heights[i]))) {
-      errors.push("Height of each layer must be an number");
-    }
-  )
+  //var layers_permittivity = $('input[name=layers_heights]').value;
+  //console.log(layers_permittivity);
+  //for (var i in layers_permittivity) {
+//    if (isNaN(parseInt(layers_permittivity[i]))) {
+  //    errors.push("Relative Permittivity of each layer must be an number");
+  //  }
+  //}
 
   if (errors.length == 0) {
     return true
