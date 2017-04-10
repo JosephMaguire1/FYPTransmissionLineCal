@@ -1,0 +1,39 @@
+{
+  "Transmission_Line_Plates_Info":
+  {
+    "Width_Of_Track": "7"
+  },
+  "Layers_Info":
+  {
+    "Layers_Above":
+    [
+      {
+        "Relative_Permittivity": "1",
+        "Height": "7"
+      },
+      {
+        "Relative_Permittivity": "4",
+        "Height": "8"
+      },
+      {
+        "Relative_Permittivity": "3",
+        "Height": "10"
+      }
+    ],
+    "Layers_Below":
+    [
+      {
+        "Relative_Permittivity": "2",
+        "Height": "1"
+      },
+      {
+        "Relative_Permittivity": "4",
+        "Height": "4"
+      },
+      {
+        "Relative_Permittivity": "3",
+        "Height": "5"
+      }
+    ]
+  }
+}

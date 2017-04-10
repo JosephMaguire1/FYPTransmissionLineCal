@@ -1,0 +1,117 @@
+{% extends "IndexCPWNewLayout.html" %}
+
+{% block baseCPW %}
+<div class="row maincontainer">
+
+  <div class="LHS col-sm-6">
+    <div class="row heading_top_of_page">
+      Coplanar Waveguide Transmission line Layout
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <img class="CPW_Image" src="/static/LargeCPWTL.jpg">
+      </div>
+      <div class="col-sm-6">
+        <img class="Trace_CPW_Image" src="/static/CPWTraceImage.png">
+      </div>
+    </div>
+    <div class="row heading_middle_of_page">
+      Output Charateristics
+    </div>
+    <div class="row outputboxes">
+      <output type="text">Characteristic Impedance: {{ answer1[1] }}</output>
+    </div>
+    <div class="row outputboxes">
+      <output type="text">Relative effective permittivity: {{ answer1[0] }}</output>
+    </div>
+  </div>
+
+  <div class="RHS col-sm-6">
+    <div class="row heading_top_of_page">
+      Substrates Parameters
+    </div>
+    <form id="myform" method="get">
+      <div class="row number_of_layers">
+        <div class="col-sm-6 height_permittivity_parameters">
+          <select class="select_layers" id="select_layers_above" onsubmit="return validateForm()">
+            <option>Number of Dielectric Layers</option>
+            {% for i in range(1,16) %}
+            <option>{{i}}</option>
+            {% endfor  %}
+          </select>
+          {% for i in range(15,0,-1) %}
+            {% if i in range(1,10) %}
+              <div class="layer_above_input">
+              Height {{i}}: <input class="layerbox1to9" type="text" name="layers_heights">
+              Eff {{i}}: <input class="layerbox1to9eff" type="text" name="layers_permittivity">
+              <input type="radio" name="conducting_trace_layer" value="{{ i }}">
+              </div>
+            {% elif i == 11 %}
+              <div class="layer_above_input">
+              Height {{i}}: <input class="layerbox11" type="text" name="layers_heights">
+              Eff {{i}}: <input class="layerbox11" type="text" name="layers_permittivity">
+              <input type="radio" name="conducting_trace_layer" value="{{ i }}">
+              </div>
+            {% else %}
+              <div class="layer_above_input">
+              Height {{i}}: <input class="layerbox10" type="text" name="layers_heights">
+              Eff {{i}}: <input class="layerbox10" type="text" name="layers_permittivity">
+              <input type="radio" name="conducting_trace_layer" value="{{ i }}">
+              </div>
+            {% endif %}
+          {% endfor  %}
+        </div>
+        <div class="col-sm-6 width_parameters">
+          Width of track (S): <input class="Traceboxtrack" type="text" name="Width_Of_Track"><br>
+          Width of gap (W): <input class="Traceboxgap" type="text" name="Width_Of_Gap"><br>
+          Width of ground (D): <input class="Traceboxground" type="text" name="Width_Of_Ground"><br>
+          <button type="submit" class="btn btn-default calculateexportbutton" form="myform">Calculate</button><br>
+          <button id="export" class="btn btn-default calculateexportbutton">Export json</button><br>
+          <button id="import" class="btn btn-default calculateexportbutton">Import json</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row paddingusermanual">
+  <div class="col-sm-2">
+  </div>
+  <div class="col-sm-8">
+    <div class="row">
+      <div class="col-sm-1">
+      </div>
+      <div class="col-sm-10 usermanual">
+        <h2 class="textCenter">
+          <b>User manual</b>
+        </h2>
+        <h3 class="textCenter">
+          Substrate Parameters
+        </h3>
+        <ul class="textLeft">
+          <li>Height = Height of the dielectric substrate layer </li>
+          <li>Eff = Effective Relative Permittivity of dielectric substrate layer </li>
+          <li>Width of track (S) = Width of Conductor track </li>
+        </ul>
+        <h3 class="textCenter">
+          User guide
+        </h3>
+        <p class="textLeft">
+          Choose how many dielectric substrate layers you structure has above and below the conductor layer.<br>
+          Enter values for the height and effective relative permittivity of each of the dielectric substrate layer.<br>
+          You can see which layer corroponds to which inputs using the image on the right hand side of the application.<br>
+          Choose what width the conductor layer of your structure is as shown in the image on the top right hand side of the application.<br>
+          You can now calculate the characteristic impedance and relative effective permittivity using the "Calculate" button.<br>
+        </p>
+        <p>
+          You can export a json file for any particute Microstrip structure using the export button and then import these files using the import button.<br>
+          By pressing the "Explanation of Calculations" button there is a detailed expliation of how the characteristic impedance and relative effective permittivity are calculated.<br>
+        </p>
+      </div>
+      <div class="col-sm-1">
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+  </div>
+</div>
+{% endblock %}

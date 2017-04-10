@@ -1,0 +1,87 @@
+{% extends "IndexMicrostripCal.html" %}
+
+{% block baseMSCal %}
+<div class="row">
+  <div class="col-sm-2 sidebar">
+
+  </div>
+  <div class="col-sm-8 textexplinations">
+    <h1>
+      Conformal Mapping for Microstrip transmission lines
+    </h1>
+    <p>
+      There is two methods which have to be taking into consideration when calculating the characteristic impedance and effective relative permittivity of a multi-dielectric layered Microstrip transmission line. The condition which dictates which method will be used is if \(\frac{w}{h} > 1\) or is \(\frac{w}{h} < 1\).
+    </p>
+    <p>
+      The following is a diagram of a generalised multi-dielectric layered Microstrip transmission.
+    </p>
+    <img>
+    </img>
+    <p>
+      The first method I will present here is if \(\frac{w}{h} > 1\).
+    </p>
+    <p>
+      The characteristic impedance of such a transmission lines is calculated using the following formula:
+    </p>
+      $$Z_0=(\frac{120𝜋}{\sqrt 𝜀_{efr}})(\frac{h}{W_ef})$$
+    <p>
+      where:
+    </p>
+      $$W_{ef}=w+(\frac{2h}{𝜋})(ln(17.08(\frac{w}{2h}+0.92)$$
+      $$𝜀_{efr}=\frac{(\sum_{i=1}^M q_i)^2}{\sum_{i=1}^M \frac{q_i}{𝜀_{eri}}}+\frac{(\sum_{j=M+1}^N q_j)^2}{\sum_{j=M+1}^N \frac{q_j}{𝜀_{erj}}}$$
+    <p>
+      <ul>
+        <li>\(Z_0\) repersents the charateristic impedance</li>
+        <li>\(W_{ef}\) repersents the effective width of the conducting trace</li>
+        <li>\(𝜀_{efr}\) repersents the effective relative permittivity of the transmission line</li>
+        <li>\(w\) repersents the width of the conducting trace</li>
+        <li>\(h\) repersents the accumulative height of the dielectric layers under the conducting trace</li>
+        <li>\({𝜀_{eri,erj}\) repersents the effective permittivity of the corresponding layer</li>
+        <li>\(q_{i,j}\) repersents the filling factors of each dielectric layer</li>
+      </ul>
+    </p>
+    <p>
+      \(q_i\) and \(q_j\) are knowing as filling factors where qi is the filling factors of the dielectric layers below the conducting trace and qj is the filling factors of the dielectric layers below the conducting trace.
+    </p>
+    <p>
+      For calculating \(q_1\) the following formula is used:
+    </p>
+      $$q_1=(\frac{H_1}{2})(1+\frac{𝜋}{4}-(\frac{h}{W_{ef}})(ln((2\frac{W_{ef}}{h})(\frac{sin((\frac{𝜋}{2})(H_1))}{H_1})+cos((\frac{𝜋}{2})(H_1)))))$$
+    <p>
+      For calculating \(q_i\) for i = 2,3,……,M-1 the following formula is used:
+    </p>
+      $$q_i=(\frac{H_i}{2})(1+\frac{𝜋}{4}-(\frac{h}{W_{ef}})(ln((2\frac{W_{ef}}{h})(\frac{sin((\frac{𝜋}{2})(H_i))}{H_i})+cos((\frac{𝜋}{2})(H_i)))))-(\frac{H_{i-1}}{2})(1+\frac{𝜋}{4}-(\frac{h}{W_{ef}})(ln((2\frac{W_{ef}}{h})(\frac{sin((\frac{𝜋}{2})(H_{i-1}))}{H_{i-1}})+cos((\frac{𝜋}{2})(H_{i-1})))))$$
+    <p>
+      To calculate the filling factor for the dielectric layer below the conducting trace the following is used:
+    </p>
+      $$q_M=1-(\frac{h}{2W_{ef}})(ln((𝜋)(\frac{W_{ef}}{h})-1))(\frac{H_i}{2})(1+\frac{𝜋}{4}-(\frac{h}{W_{ef}})(ln((2\frac{W_{ef}}{h})(\frac{sin((\frac{𝜋}{2})(H_i))}{H_i})+cos((\frac{𝜋}{2})(H_i)))))$$
+    <p>
+      To calculate the filling factor for the dielectric layer above the conducting trace we use:
+    </p>
+      $$q_{M+1}=(\frac{h}{2W_{ef}})(ln((𝜋)(\frac{W_ef}{h})-1)-(1+V_{M+1})(ln((\frac{2W_{ef}}{h})(\frac{cos((\frac{𝜋}{2})(V_{M+1}))}{2H_{M+1}-1+V{M+1}})+sin((\frac{𝜋}{2})(V{M+1})))))$$
+    <p>
+      For calculating \(q_j\) for j = M+2,M+3,……,N-1 the following formula is used:
+    </p>
+      $$q_j=(\frac{h}{2W_{ef}})(ln((𝜋)(\frac{W_ef}{h})-1)-(1+V_j)(ln((\frac{2W_{ef}}{h})(\frac{cos((\frac{𝜋}{2})(V_j))}{2H_j-1+Vj})+sin((\frac{𝜋}{2})(V_j)))))-((\frac{h}{2W_{ef}})(ln((𝜋)(\frac{W_ef}{h})-1)-(1+V_{j-1})(ln((\frac{2W_{ef}}{h})(\frac{cos((\frac{𝜋}{2})(V_{j-1}))}{2H_{j-1}-1+V{j-1}})+sin((\frac{𝜋}{2})(V{j-1}))))))$$
+    <p>
+      And finally to find the filling factor for the Nth layer we have to use:
+    </p>
+      $$q_N=1-\sum_{j=M+1}^N-1 q_j-\sum_{i=1}^M q_i$$
+    <p>
+      In these calculations \(H_i\) and \(H_j\) are found used the following equations:
+    </p>
+      $$H_i=\frac{h_i}{h}$$
+      $$H_j=\frac{h_j}{h}$$
+    <p>
+      And to calculate V_j we use the following equation:
+    </p>
+      $$V_j=\frac{v_j}{h}$$
+    <p>
+      where:
+    </p>
+      $$v_j=(\frac{2h}{𝜋})(arctan((\frac{𝜋}{(\frac{𝜋}{2})(\frac{W_ef}{h})-2})(H_j-1)))$$
+  </div>
+  <div class="col-sm-2 sidebar">
+  </div>
+</div>
+{% endblock %}

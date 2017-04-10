@@ -1,0 +1,148 @@
+{% extends "IndexCPW.html" %}
+
+{% block baseCPW %}
+<div class="containerMicrostripPage">
+  <div class="row">
+    <div class="col-sm-7 headings">
+      Substrates Parameters
+    </div>
+    <div class="col-sm-5 headings">
+      Coplanar wavguide Transmission Line Layout
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-7">
+      <form id="myform" method="get">
+        <div class="row">
+          <div class="col-sm-6 number_of_layers">
+            <select class="select_layers" id="select_layers_above">
+              <option>Number of Layers Above</option>
+              {% for i in range(1,11) %}
+              <option>{{i}}</option>
+              {% endfor  %}
+            </select>
+            {% for i in range(1,11) %}
+              {% if i in range(1,10) %}
+                <div class="layer_above_input">
+                Height {{i}}: <input class="layerbox1to9" type="text" name="heights_above">
+                Eff {{i}}: <input class="layerbox1to9" type="text" name="effective_layer_above">
+                </div>
+              {% else %}
+                <div class="layer_above_input">
+                Height {{i}}: <input class="layerbox10" type="text" name="heights_above">
+                Eff {{i}}: <input class="layerbox10" type="text" name="effective_layer_above">
+                </div>
+              {% endif %}
+            {% endfor  %}
+          </div>
+          <div class="col-sm-6 number_of_layers">
+            <select class="select_layers" id="select_layers_below">
+              <option>Number of Layers Below</option>
+              {% for i in range(1,12) %}
+              <option>{{i}}</option>
+              {% endfor  %}
+            </select>
+            {% for i in range(1,12) %}
+              {% if i in range(1,10) %}
+                <div class="layer_below_input">
+                Height {{i}}: <input class="layerbox1to9" type="text" name="heights_below">
+                Eff {{i}}: <input class="layerbox1to9" type="text" name="effective_layer_below">
+                </div>
+              {% else %}
+                <div class="layer_below_input">
+                Height {{i}}: <input class="layerbox10" type="text" name="heights_below">
+                Eff {{i}}: <input class="layerbox10" type="text" name="effective_layer_below">
+                </div>
+              {% endif %}
+            {% endfor  %}
+          </div>
+        </div>
+        <div class="row containerMicrostripPage2">
+          <div class="col-sm-6">
+            Width of track (S): <input class="Traceboxtrack" type="text" name="Width_Of_Track"><br>
+            Width of gap (W): <input class="Traceboxgap" type="text" name="Width_Of_Gap"><br>
+            Width of ground (D): <input class="Traceboxground" type="text" name="Width_Of_Ground"><br>
+          </div>
+          <div class="col-sm-6">
+            <button type="submit" class="btn btn-default calculateexportbutton" form="myform">Calculate</button><br>
+            <button class="btn btn-default calculateexportbutton">Export json</button><br>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-5">
+      <div class="row">
+        <div class="col-sm-5">
+          <img class="Trace_Image" src="/static/WidthCPWTrack.jpg">
+        </div>
+        <div class="col-sm-7">
+          <img class="Microstrip_Image" src="/static/LargeCPWTL.jpg">
+        </div>
+      </div>
+      <div class="row outputheading">
+        <div class="col-sm-12">
+          Output Values
+        </div>
+      </div>
+      <div class="row outputboxes">
+        <div class="col-sm-5">
+          Characteristic Impedance: <output class="Tracebox" type="text" name="Width_Of_Track">{{ answer1[1] }}</output>
+        </div>
+        <div class="col-sm-7">
+          Relative effective permittivity: <output class="Tracebox" type="text" name="Width_Of_Gap">{{ answer1[0] }}</output>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <a href="http://127.0.0.1:5000/MicrostripCalculations">
+            <button class="explinationsofcalculationsbutton btn btn-default">Explanation of Calculations</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-10 usermanual">
+          <h2 class="textCenter">
+            <b>User manual</b>
+          </h2>
+          <h3 class="textCenter">
+            Substrate Parameters
+          </h3>
+          <ul class="textLeft">
+            <li>Height = Height of the dielectric substrate layer </li>
+            <li>Eff = Effective Relative Permittivity of dielectric substrate layer </li>
+            <li>Width of track (S) = Width of Conductor track </li>
+            <li>Width of gap (W) = Width of gap between the conductor track and the grounded return conductors </li>
+            <li>Width of ground (D) = Width of grounded return conductors.</li>
+          </ul>
+          <h3 class="textCenter">
+            User guide
+          </h3>
+          <p class="textLeft">
+            Choose how many dielectric substrate layers you structure has above and below the conductor layer.<br>
+            Enter values for the height and effective relative permittivity of each of the dielectric substrate layer.<br>
+            You can see which layer corroponds to which inputs using the image on the right hand side of the application.<br>
+            Choose what width the conductor layer, width of the grounded return conductors and the width of the gap between the conductor track and the grounded return conductors for your structure as shown in the image on the top right hand side of the application.<br>
+            You can now calculate the characteristic impedance and relative effective permittivity using the "Calculate" button.<br>
+          </p>
+          <p>
+            You can export a json file for any particute coplanar waveguide structure using the export button and then import these files using the import button.<br>
+            By pressing the "Explanation of Calculations" button there is a detailed expliation of how the characteristic impedance and relative effective permittivity are calculated.<br>
+          </p>
+        </div>
+        <div class="col-sm-1">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+    </div>
+  </div>
+</div>
+{% endblock %}

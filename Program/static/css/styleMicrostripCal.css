@@ -1,0 +1,12 @@
+.sidebar {
+  height: 100vh;
+}
+
+.textexplinations {
+  padding-top: 15px;
+}
+
+body{
+    overflow-x:hidden;
+    background-color: #3b8ec2;
+}

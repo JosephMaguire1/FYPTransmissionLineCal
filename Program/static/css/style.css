@@ -1,0 +1,58 @@
+body {
+  background-color: #3b8ec2 !important;
+}
+
+.containerHomePage {
+  position: absolute;
+  top: 30%;
+  width 100vp;
+}
+
+.sidebar {
+  background-color: #f2f2f2;
+  height: 100vh;
+}
+
+.CPW_Image {
+  height: 200px;
+  width: 270px;
+  top: 30%;
+  position: absolute;
+  left: 25%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: black;
+  margin: 5px;
+}
+
+.Microstrip_Image {
+  height: 200px;
+  width: 270px;
+  top: 30%;
+  position: absolute;
+  right: 25%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: black;
+  margin: 5px;
+}
+
+.CPW_Writing {
+  width: 270px;
+  text-align: center;
+  left: 25%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: blue;
+  padding: 3px;
+}
+
+.Microstrip_Writing {
+  width: 270px;
+  text-align: center;
+  right: 25%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: blue;
+  padding: 3px;
+}

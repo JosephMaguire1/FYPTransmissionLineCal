@@ -1,0 +1,93 @@
+{% extends "IndexMicrostripCal.html" %}
+
+{% block baseMSCal %}
+<div class="row">
+  <div class="col-sm-2 sidebar">
+
+  </div>
+  <div class="col-sm-8 textexplinations">
+    <h1>
+      Conformal Mapping for coplanar waveguide transmission lines
+    </h1>
+    <p>
+      The characteristic impedance of a coplanar waveguide transmission lines is calculated using the following formula:
+    </p>
+      $$Z_0=\frac{1}{C.v_{ph}}$$
+    <p>
+      <ul>
+        <li>\(Z_0\) repersents the charateristic impedance</li>
+        <li>\(C\) repersents the line capacitance of the transmission line</li>
+        <li>\(v_{ph}\) repersents the phase velocity of the transmission line</li>
+      </ul>
+    </p>
+    <p>
+      The phase velocity (Vph) of the transmission line is calculated using the following formula:
+    </p>
+      $$v_{ph}=\frac{c}{\sqrt(𝜀_{eff})}$$
+    <p>
+      <ul>
+        <li>\(c\) repersents speed of light in free space</li>
+        <li>\(𝜀_{eff}\) repersents the effective relative permittivity of the transmission line</li>
+      </ul>
+    </p>
+    <p>
+      Eeff is calculated using:
+    </p>
+      $$𝜀_{eff}=\frac{C}{C_0}$$
+    <p>
+      <ul>
+        <li>\(C\) repersents the line capacitance of the transmission line</li>
+        <li>\(C_0\) repersents the line capacitance of the transmission line when no dielectrics exist</li>
+      </ul>
+    </p>
+    <p>
+      Im am going to show an example of how to calculate the line capacitance of the transmission line by using an example where there is 2 dielectric layers above the conductor track and the grounded return conductors and three layers below the the conductor track and the grounded return conductors. This method can be extended to any coplanar waveguide transmission line configuration as I have done in this application.
+    </p>
+    <img>
+    </img>
+    <p>
+      The line capacitance of the transmission line can be written as the sum of the six line capacitance as shown in the following formula:
+    </p>
+      $$C=C_0+C_1+C_2+C_3+C_4+C_5$$
+    <p>
+      We break up the above structure into the following 6 structures each which represent the way to calculate 𝐶0 to 𝐶5 respectively.
+    </p>
+    <img>
+    </img>
+    <p>
+      To calculate 𝐶0 we use the following formula:
+    </p>
+      $$C_0=4.𝜀_0.\frac{K'(k)}{K(k)}$$
+    <p>
+      <ul>
+        <li>\(K\) repersents the complete elliptical integral of the first kind</li>
+      </ul>
+    </p>
+    <p>
+      k and k’ are calculated using:
+    </p>
+      $$k=\frac{x_c}{x_b}.\sqrt \frac{x_b^2-x_a^2}{x_c^2-x_a^2}$$
+      $$k'=\sqrt 1-k^2$$
+    <p>
+      C1 to C5 are , respectively, the line capacitance when the electric field exists only inside the dielectric layers with thickness of ℎ1, ℎ2, ℎ3, ℎ4 and ℎ5 and effective relative permittivity of 𝜀𝑟1𝑇 − 1, 𝜀𝑟2𝑇 − 𝜀𝑟1 , 𝜀𝑟3𝑆 − 1,𝜀𝑟4𝑆 − 𝜀𝑟3 𝑆 and 𝜀𝑟5𝑆 − 𝜀𝑟4𝑆.<br>
+      Therefore we can use the followinh equations to calculate C1 to C5:
+    </p>
+      $$C_1=2.𝜀_0(𝜀_{r1}^T-1).\frac{K'(k_1)}{K(k_1)}$$
+      $$C_2=2.𝜀_0(𝜀_{r2}^T-𝜀_{r1}^T).\frac{K'(k_2)}{K(k_2)}$$
+      $$C_3=2.𝜀_0(𝜀_{r3}^T-1).\frac{K'(k_3)}{K(k_3)}$$
+      $$C_4=2.𝜀_0(𝜀_{r4}^S-𝜀_{r3}^S).\frac{K'(k_4)}{K(k_4)}$$
+      $$C_5=2.𝜀_0(𝜀_{r5}^S-𝜀_{r4}^S).\frac{K'(k_5)}{K(k_5)}$$
+    <p>
+      where:
+    </p>
+      $$k_i=\frac{sinh(\frac{𝜋.x_c}{2.h_i})}{sinh(\frac{𝜋.x_b}{2.h_i})}.\sqrt \frac{sinh^2(\frac{𝜋.x_b}{2.h_i})-sinh^2(\frac{𝜋.x_a}{2.h_i})}{sinh^2(\frac{𝜋.x_c}{2.h_i})-sinh^2(\frac{𝜋.x_a}{2.h_i})}$$
+      $$k_i'=\sqrt 1-k_i^2$$
+    <p>
+      This formulation can be extended as previously stated for any configuration.
+    </p>
+  </div>
+  <div class="col-sm-2 sidebar">
+
+  </div>
+</div>
+{% endblock %}
