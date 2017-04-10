@@ -51,10 +51,9 @@ function explinationMicrostrip() {
 
 function attachChangeEventToLayerInput(layerName) {
   $('#select_layers_' + layerName).on('change', function() {
-    alert("WE are at this point")
     var num_layers_to_show = parseInt(this.value);
-    var layers = $('.layer_' + layerName + '_input');
-    for (var i = layers.length; i > 0; i--) {
+    var layers = $($('.layer_' + layerName + '_input').get().reverse())
+    for (var i = 0; i < layers.length; i++) {
       var layer = $(layers[i]);
       if (i < num_layers_to_show) {
         layer.show();
