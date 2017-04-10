@@ -8,7 +8,7 @@ class View(object):
 class ViewMicrostrip(object):
     @classmethod
     def render(self, answer):
-        return render_template("baseMicrostrip.html", answer1=answer)
+        return render_template("baseMicrostripNewLayout.html", answer1=answer)
 
 class ViewCPW(object):
     @classmethod
