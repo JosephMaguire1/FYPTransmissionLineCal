@@ -84,6 +84,11 @@ function validateForm() {
     errors.push("Width of trace (S) must be an number");
   }
 
+  //var layers_permittivity = $('input[name="layers_heights[]"]').map(function(){
+  //    return this.value
+  //}).get()
+  //alert(layers_permittivity)
+  //http://stackoverflow.com/questions/13916661/get-values-of-all-textboxes-with-same-name-attributes-in-jquery
   //var layers_permittivity = $('input[name=layers_heights]').value;
   //console.log(layers_permittivity);
   //for (var i in layers_permittivity) {

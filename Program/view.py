@@ -15,6 +15,11 @@ class ViewCPW(object):
     def render(self, answer):
         return render_template("baseCPWNewLayout.html", answer1=answer)
 
+class ViewCPWWithGround(object):
+    @classmethod
+    def render(self, answer):
+        return render_template("baseCPWNewLayoutWithGround.html", answer1=answer)
+
 class ViewMicrostripCalculations(object):
     @classmethod
     def render(self):
