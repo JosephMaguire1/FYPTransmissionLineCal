@@ -43,19 +43,19 @@
             {% if i in range(1,10) %}
               <div class="layer_above_input">
               Height {{i}}: <input class="layerbox1to9" type="text" name="layers_heights">
-              Eff {{i}}: <input class="layerbox1to9eff" type="text" name="layers_permittivity">
+              Er {{i}}: <input class="layerbox1to9eff" type="text" name="layers_permittivity">
               <input type="radio" name="conducting_trace_layer" value="{{ i }}">
               </div>
             {% elif i == 11 %}
               <div class="layer_above_input">
               Height {{i}}: <input class="layerbox11" type="text" name="layers_heights">
-              Eff {{i}}: <input class="layerbox11eff" type="text" name="layers_permittivity">
+              Er {{i}}: <input class="layerbox11eff" type="text" name="layers_permittivity">
               <input type="radio" name="conducting_trace_layer" value="{{ i }}">
               </div>
             {% else %}
               <div class="layer_above_input">
               Height {{i}}: <input class="layerbox10" type="text" name="layers_heights">
-              Eff {{i}}: <input class="layerbox10" type="text" name="layers_permittivity">
+              Er {{i}}: <input class="layerbox10" type="text" name="layers_permittivity">
               <input type="radio" name="conducting_trace_layer" value="{{ i }}">
               </div>
             {% endif %}
@@ -95,18 +95,20 @@
           Substrate Parameters
         </h3>
         <ul class="textLeft">
-          <li>Height = Height of the dielectric substrate layer </li>
-          <li>Eff = Effective Relative Permittivity of dielectric substrate layer </li>
-          <li>Width of track (S) = Width of Conductor track </li>
+          <li>Height = Height of the dielectric layer </li>
+          <li>Er = Dielectric constant </li>
+          <li>Width of Conductor (S) = Width of conductor </li>
         </ul>
         <h3 class="textCenter">
           User guide
         </h3>
         <p class="textLeft">
-          Choose how many dielectric substrate layers you structure has above and below the conductor layer.<br>
-          Enter values for the height and effective relative permittivity of each of the dielectric substrate layer.<br>
-          You can see which layer corroponds to which inputs using the image on the right hand side of the application.<br>
-          Choose what width the conductor layer of your structure is as shown in the image on the top right hand side of the application.<br>
+          Choose how many dielectric substrate layers you structure has overall.<br>
+          Enter values for the height and dielectric constant of each of the dielectric substrate layer.<br>
+          Choose which layer you want to place the conductor on. You can do this by pressing the radio buttons next to the substrate parameters.<br>
+          For example if you choose the radio button beside layer 4 then the conductor will be placed on top of this layer i.e. there will be 4 dielectric layers below the conductor.<br>
+          Also by using the image on the top left hand side of the application you can see which layers correspond to which values you are entering.<br>
+          Choose the width of the conductor for your structure as shown in the image on the top left hand side of the application.<br>
           You can now calculate the characteristic impedance and relative effective permittivity using the "Calculate" button.<br>
         </p>
         <p>
