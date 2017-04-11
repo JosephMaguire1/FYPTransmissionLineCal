@@ -9,10 +9,10 @@
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <img class="CPW_Image" src="/static/LargeCPWTL.jpg">
+        <img class="CPW_Image" src="/static/CPWLayout3.png">
       </div>
       <div class="col-sm-6">
-        <img class="Trace_CPW_Image" src="/static/CPWTraceImage.png">
+        <img class="Trace_CPW_Image" src="/static/CPWConductorImage3.png">
       </div>
     </div>
     <div class="row heading_middle_of_page">
@@ -68,6 +68,15 @@
           <button type="submit" class="btn btn-default calculateexportbutton" form="myform">Calculate</button><br>
           <button id="export" class="btn btn-default calculateexportbutton">Export json</button><br>
           <button id="import" class="btn btn-default calculateexportbutton">Import json</button><br>
+          <div class="row question">
+            <div class="col-sm-8 grounded_layer_question">
+              Do you want a grounded layer at the bottom of the stack?
+            </div>
+            <div class="col-sm-4">
+              Yes <input type="radio" name="grounded_layer" value="Yes">
+              No <input class="No" type="radio" name="grounded_layer" value="No">
+            </div>
+          </div>
         </div>
       </div>
     </form>
@@ -113,6 +122,7 @@
           For example if you choose the radio button beside layer 4 then the conductor and the grounded return conductor will be placed on top of this layer i.e. there will be 4 dielectric layers below the conductor and the grounded return conductor.<br>
           Also by using the image on the top left hand side of the application you can see which layers correspond to which values you are entering.<br>
           Choose the width of the conductor, width of the grounded return conductors and the width of the gap between the conductor and the grounded return conductors of your structure as shown in the image on the top left hand side of the application.<br>
+          Press the "Yes" or "No" radio buttons depending on if yor coplanar waveguide structure has a grounded layer under at the bottom of the structure. If you do not press one of these buttons than your structure will be treated as if there is no extra grounded layer.<br> 
           You can now calculate the characteristic impedance and relative effective permittivity using the "Calculate" button.<br>
         </p>
         <p>

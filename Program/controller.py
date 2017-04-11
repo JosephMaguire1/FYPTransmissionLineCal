@@ -93,11 +93,13 @@ def CPW():
         heights = request.args.getlist('layers_heights')
         heights.reverse()
         conducting_trace_layer = request.args.get('conducting_trace_layer')
+        grounded_layer = request.args.get('grounded_layer')
         layers_permittivity = request.args.getlist('layers_permittivity')
         layers_permittivity.reverse()
         Width_Of_Track = request.args.get('Width_Of_Track')
         Width_Of_Gap = request.args.get('Width_Of_Gap')
         Width_Of_Ground = request.args.get('Width_Of_Ground')
+
         if heights:
             try:
                 heights = [float(x) for x in heights]
@@ -154,86 +156,23 @@ def CPW():
             eff = 1
             eff_above.append(eff)
 
-        if ( heights_above and heights_below and eff_above and eff_below and Width_Of_Track and Width_Of_Gap and Width_Of_Ground):
-            answer = ConfomalMappingCPWCalculate(heights_above, heights_below, eff_above, eff_below, Width_Of_Track, Width_Of_Gap, Width_Of_Ground)
-            return ViewCPW.render(answer)
+        if not grounded_layer:
+            grounded_layer = "No"
+
+        if grounded_layer == "No":
+            if ( heights_above and heights_below and eff_above and eff_below and Width_Of_Track and Width_Of_Gap and Width_Of_Ground):
+                answer = ConfomalMappingCPWCalculate(heights_above, heights_below, eff_above, eff_below, Width_Of_Track, Width_Of_Gap, Width_Of_Ground)
+                return ViewCPW.render(answer)
+            else:
+                answer = [' ', ' ']
+                return ViewCPW.render(answer)
         else:
-            answer = [' ', ' ']
-            return ViewCPW.render(answer)
-
-@app.route('/CPWWithGround')
-def CPWWithGround():
-        heights = request.args.getlist('layers_heights')
-        heights.reverse()
-        conducting_trace_layer = request.args.get('conducting_trace_layer')
-        layers_permittivity = request.args.getlist('layers_permittivity')
-        layers_permittivity.reverse()
-        Width_Of_Track = request.args.get('Width_Of_Track')
-        Width_Of_Gap = request.args.get('Width_Of_Gap')
-        Width_Of_Ground = request.args.get('Width_Of_Ground')
-        if heights:
-            try:
-                heights = [float(x) for x in heights]
-            except ValueError:
-                abort(404)
-
-        if conducting_trace_layer:
-            try:
-                conducting_trace_layer = int(conducting_trace_layer)
-            except ValueError:
-                abort(404)
-
-        heights_below = heights[0:conducting_trace_layer]
-        heights_above = heights[conducting_trace_layer:]
-        heights_below.reverse()
-        print("heights_above is:", heights_above)
-        print("heights_below is:", heights_below)
-
-        if layers_permittivity:
-            try:
-                layers_permittivity = [float(x) for x in layers_permittivity]
-            except ValueError:
-                abort(404)
-
-        eff_below = layers_permittivity[0:conducting_trace_layer]
-        eff_above = layers_permittivity[conducting_trace_layer:]
-        eff_below.reverse()
-        print("eff_above is:", eff_above)
-        print("eff_below is:", eff_below)
-
-        if Width_Of_Track:
-            try:
-                Width_Of_Track = float(Width_Of_Track)
-            except ValueError:
-                abort(404)
-
-        if Width_Of_Gap:
-            try:
-                Width_Of_Gap = float(Width_Of_Gap)
-            except ValueError:
-                abort(404)
-
-        if Width_Of_Ground:
-            try:
-                Width_Of_Ground = float(Width_Of_Ground)
-            except ValueError:
-                abort(404)
-
-        if not heights_above:
-            height = 10
-            heights_above.append(height)
-
-        if not eff_above:
-            eff = 1
-            eff_above.append(eff)
-
-        if ( heights_above and heights_below and eff_above and eff_below and Width_Of_Track and Width_Of_Gap and Width_Of_Ground):
-            answer = ConfomalMappingCPWCalculateGroundLayerIncluded(heights_above, heights_below, eff_above, eff_below, Width_Of_Track, Width_Of_Gap, Width_Of_Ground)
-            return ViewCPW.render(answer)
-        else:
-            answer = [' ', ' ']
-            return ViewCPW.render(answer)
-
+            if ( heights_above and heights_below and eff_above and eff_below and Width_Of_Track and Width_Of_Gap and Width_Of_Ground):
+                answer = ConfomalMappingCPWCalculateGroundLayerIncluded(heights_above, heights_below, eff_above, eff_below, Width_Of_Track, Width_Of_Gap, Width_Of_Ground)
+                return ViewCPW.render(answer)
+            else:
+                answer = [' ', ' ']
+                return ViewCPW.render(answer)
 
 @app.route('/MicrostripCalculations')
 def MicrostripCalculations():

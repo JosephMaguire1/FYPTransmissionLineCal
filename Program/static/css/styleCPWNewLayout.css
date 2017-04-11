@@ -161,3 +161,20 @@ body {
 .usermanual {
   border-style: outset;
 }
+
+.question {
+  margin-top: 10px;
+  border-style: solid;
+  border-radius: 4px;
+  background-color: #e6e6e6;
+  border-color: #d9d9d9;
+  border-width: 2px;
+}
+
+.grounded_layer_question {
+  max-width: 150px;
+}
+
+.No {
+  margin-left: 4.84px !important;
+}
