@@ -1,12 +1,25 @@
-.sidebar {
-  height: 100vh;
+body {
+  background-color: #f2f2f2 !important;
+  margin: 0;
+  min-height: 100% !important;
 }
 
-.textexplinations {
-  padding-top: 15px;
+.maincontainer {
+  margin: 30px 80px 30px 80px !important;
+  border-style: solid;
+  border-radius: 10px;
+  min-height: 500px;
+  background-color: #e6e6e6;
+  border-color: #d9d9d9;
+  border-width: 2px;
+  padding: 10px 10px 10px 10px;
 }
 
-body{
-    overflow-x:hidden;
-    background-color: #3b8ec2;
+.MicrostripCalculationImages {
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 3px solid #d9d9d9;
+  width: 30%;
 }

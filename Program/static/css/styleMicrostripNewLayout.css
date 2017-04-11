@@ -150,6 +150,10 @@ body {
   margin-top: 10px !important;
 }
 
+.explinationsofcalculationsbutton {
+  min-width: 100px;
+}
+
 .textRight {
   text-align: left;
 }
@@ -160,4 +164,5 @@ body {
 
 .usermanual {
   border-style: outset;
+  margin-bottom: 30px
 }
