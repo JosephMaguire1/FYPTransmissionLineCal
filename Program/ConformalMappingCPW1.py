@@ -3,6 +3,7 @@ from scipy.special import ellipk
 import json
 from pprint import pprint
 from scipy import constants
+from decimal import *
 
 # constants
 relativePermittivityOfFreeSpace = constants.epsilon_0
@@ -22,13 +23,13 @@ def ConfomalMappingCPWCalculate(heights_above, heights_below, effsLA, effsLB, Wi
     # Function to find C0
     def findC0(xa, xb, xc):
         xasquared = xa**2
-        xbsquared = math.pow(xb, 2)
-        xcsquared = math.pow(xc, 2)
+        xbsquared = xb**2
+        xcsquared = xc**2
         kp1 = xc/xb
         kInsideSqurt = (xbsquared-xasquared)/(xcsquared-xasquared)
         kp2 = math.sqrt(kInsideSqurt)
         k = kp1*kp2
-        ksquared = math.pow(k, 2)
+        ksquared = k**2
         kder = math.sqrt(1-ksquared)
         K = ellipk(k)
         Kder = ellipk(kder)
@@ -55,19 +56,20 @@ def ConfomalMappingCPWCalculate(heights_above, heights_below, effsLA, effsLB, Wi
         coeffInSideBracketsc = (math.pi*xc)/(2*height)
 
         coeffa = math.sinh(coeffInSideBracketsa)
-        coeffasquared = math.pow(coeffa, 2)
+        coeffasquared = coeffa**2
+
         print("coeffInSideBracketsb is: ", coeffInSideBracketsb)
         coeffb = math.sinh(coeffInSideBracketsb)
         print("coeffb is: ", coeffb)
-        coeffbsquared = math.pow(coeffb, 2)
+        coeffbsquared = coeffb**2
         coeffc = math.sinh(coeffInSideBracketsc)
-        coeffcsquared = math.pow(coeffc, 2)
+        coeffcsquared = coeffc**2
 
         kp1 = coeffc/coeffb
         kInsideSqurt = (coeffbsquared-coeffasquared)/(coeffcsquared-coeffasquared)
         kp2 = math.sqrt(kInsideSqurt)
         k = kp1*kp2
-        ksquared = math.pow(k, 2)
+        ksquared = k**2
         kder = math.sqrt(1-ksquared)
         K = ellipk(k)
         Kder = ellipk(kder)
@@ -194,13 +196,13 @@ def ConfomalMappingCPWCalculateGroundLayerIncluded(heights_above, heights_below,
     # Function to find C0
     def findC0(xa, xb, xc):
         xasquared = xa**2
-        xbsquared = math.pow(xb, 2)
-        xcsquared = math.pow(xc, 2)
+        xbsquared = xb**2
+        xcsquared = xc**2
         kp1 = xc/xb
         kInsideSqurt = (xbsquared-xasquared)/(xcsquared-xasquared)
         kp2 = math.sqrt(kInsideSqurt)
         k = kp1*kp2
-        ksquared = math.pow(k, 2)
+        ksquared = k**2
         kder = math.sqrt(1-ksquared)
         K = ellipk(k)
         Kder = ellipk(kder)
@@ -224,17 +226,17 @@ def ConfomalMappingCPWCalculateGroundLayerIncluded(heights_above, heights_below,
         coeffInSideBracketsc = (math.pi*xc)/(2*height)
 
         coeffa = math.sinh(coeffInSideBracketsa)
-        coeffasquared = math.pow(coeffa, 2)
+        coeffasquared = coeffa**2
         coeffb = math.sinh(coeffInSideBracketsb)
-        coeffbsquared = math.pow(coeffb, 2)
+        coeffbsquared = coeffb**2
         coeffc = math.sinh(coeffInSideBracketsc)
-        coeffcsquared = math.pow(coeffc, 2)
+        coeffcsquared = coeffc**2
 
         kp1 = coeffc/coeffb
         kInsideSqurt = (coeffbsquared-coeffasquared)/(coeffcsquared-coeffasquared)
         kp2 = math.sqrt(kInsideSqurt)
         k = kp1*kp2
-        ksquared = math.pow(k, 2)
+        ksquared = k**2
         kder = math.sqrt(1-ksquared)
         K = ellipk(k)
         Kder = ellipk(kder)

@@ -96,8 +96,15 @@ def CPW():
             except ValueError:
                 abort(404)
 
+        if conducting_trace_layer:
+            try:
+                conducting_trace_layer = int(conducting_trace_layer)
+            except ValueError:
+                abort(404)
+
         heights_below = heights[0:conducting_trace_layer]
         heights_above = heights[conducting_trace_layer:]
+        heights_below.reverse()
         print("heights_above is:", heights_above)
         print("heights_below is:", heights_below)
 
@@ -109,6 +116,7 @@ def CPW():
 
         eff_below = layers_permittivity[0:conducting_trace_layer]
         eff_above = layers_permittivity[conducting_trace_layer:]
+        eff_below.reverse()
         print("eff_above is:", eff_above)
         print("eff_below is:", eff_below)
 
