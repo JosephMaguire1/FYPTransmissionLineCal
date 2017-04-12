@@ -4,6 +4,7 @@ import json
 from pprint import pprint
 from scipy import constants
 from decimal import *
+import numpy
 
 # constants
 relativePermittivityOfFreeSpace = constants.epsilon_0
@@ -55,28 +56,33 @@ def ConfomalMappingCPWCalculate(heights_above, heights_below, effsLA, effsLB, Wi
         coeffInSideBracketsb = (math.pi*xb)/(2*height)
         coeffInSideBracketsc = (math.pi*xc)/(2*height)
 
-        coeffa = math.sinh(coeffInSideBracketsa)
-        coeffasquared = coeffa**2
+        coeffa = Decimal(numpy.sinh(coeffInSideBracketsa))
+        coeffasquared = Decimal(coeffa**2)
 
         print("coeffInSideBracketsb is: ", coeffInSideBracketsb)
-        coeffb = math.sinh(coeffInSideBracketsb)
+        coeffb = Decimal(math.sinh(coeffInSideBracketsb))
         print("coeffb is: ", coeffb)
-        coeffbsquared = coeffb**2
-        coeffc = math.sinh(coeffInSideBracketsc)
-        coeffcsquared = coeffc**2
+        coeffbsquared = Decimal(coeffb**2)
+        coeffc = Decimal(math.sinh(coeffInSideBracketsc))
+        coeffcsquared = Decimal(coeffc**2)
 
-        kp1 = coeffc/coeffb
-        kInsideSqurt = (coeffbsquared-coeffasquared)/(coeffcsquared-coeffasquared)
-        kp2 = math.sqrt(kInsideSqurt)
+        kp1 = Decimal(coeffc/coeffb)
+        kInsideSqurt = Decimal((coeffbsquared-coeffasquared)/(coeffcsquared-coeffasquared))
+        kp2 = Decimal(math.sqrt(kInsideSqurt))
         k = kp1*kp2
-        ksquared = k**2
+        ksquared = Decimal(k**2)
         kder = math.sqrt(1-ksquared)
-        K = ellipk(k)
-        Kder = ellipk(kder)
+        k = float(k)
+        kder = float(kder)
+        print("k is: ", k)
+        print("kder is: ", kder)
+        K = Decimal(ellipk(k))
+        Kder = Decimal(ellipk(kder))
 
-        Kcoeff = Kder/K
-
-        C = 2*relativePermittivityOfFreeSpace*eff*Kcoeff
+        Kcoeff = Decimal(Kder/K)
+        Kcoefffloat = float(Kcoeff)
+        print("Kcoefffloat is:", Kcoefffloat)
+        C = 2*relativePermittivityOfFreeSpace*eff*Kcoefffloat
         print("---------------")
         print("height is:", height)
         print("coeffa is:", coeffa)
@@ -336,14 +342,19 @@ def ConfomalMappingCPWCalculateGroundLayerIncluded(heights_above, heights_below,
             C = findCap(height, eff)
             CapacitancesBelow.append(C)
         l = l + 1
+    print("CapacitancesBelow is:", CapacitancesBelow)
+    print("CapacitancesAbove is:", CapacitancesAbove)
+
+    heights_below = heights_below
 
     heightsDiveffs = []
-    a = 0
-    while a < heights_below_length:
-        height = heights_below[a]
-        eff = effsLB[a]
+    x = 0
+    while x < heights_below_length:
+        height = heights_below[x]
+        eff = effsLB[x]
         heightDiveff = height/eff
         heightsDiveffs.append(heightDiveff)
+        x = x + 1
 
     sumofheightsDiveffs = sum(heightsDiveffs)
     CapacitancesDueToGround = (relativePermittivityOfFreeSpace*W)/(sumofheightsDiveffs)

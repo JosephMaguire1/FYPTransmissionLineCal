@@ -119,7 +119,7 @@ body {
 }
 
 .Traceboxgap {
-  margin-left: 19px;
+  margin-left: 20px;
   max-width: 30px;
 }
 
@@ -160,6 +160,7 @@ body {
 
 .usermanual {
   border-style: outset;
+  margin-bottom: 30px
 }
 
 .question {
