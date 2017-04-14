@@ -5,7 +5,7 @@
 
   <div class="LHS col-sm-6">
     <div class="row heading_top_of_page">
-      Microstrip Transmission line Layout
+      Transmission line Layout
     </div>
     <div class="row">
       <div class="col-sm-6">
@@ -42,19 +42,19 @@
           {% for i in range(15,0,-1) %}
             {% if i in range(1,10) %}
               <div class="layer_above_input">
-              Height {{i}}: <input class="layerbox1to9" type="text" name="layers_heights">
+              H {{i}}: <input class="layerbox1to9" type="text" name="layers_heights">
               Er {{i}}: <input class="layerbox1to9eff" type="text" name="layers_permittivity">
               <input type="radio" name="conducting_trace_layer" value="{{ i }}">
               </div>
             {% elif i == 11 %}
               <div class="layer_above_input">
-              Height {{i}}: <input class="layerbox11" type="text" name="layers_heights">
+              H {{i}}: <input class="layerbox11" type="text" name="layers_heights">
               Er {{i}}: <input class="layerbox11eff" type="text" name="layers_permittivity">
               <input type="radio" name="conducting_trace_layer" value="{{ i }}">
               </div>
             {% else %}
               <div class="layer_above_input">
-              Height {{i}}: <input class="layerbox10" type="text" name="layers_heights">
+              H {{i}}: <input class="layerbox10" type="text" name="layers_heights">
               Er {{i}}: <input class="layerbox10" type="text" name="layers_permittivity">
               <input type="radio" name="conducting_trace_layer" value="{{ i }}">
               </div>
@@ -95,7 +95,7 @@
           Substrate Parameters
         </h3>
         <ul class="textLeft">
-          <li>Height = Height of the dielectric layer </li>
+          <li>H = Height of the dielectric layer </li>
           <li>Er = Dielectric constant </li>
           <li>Width of Conductor (S) = Width of conductor </li>
         </ul>

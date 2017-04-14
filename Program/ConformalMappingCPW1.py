@@ -20,6 +20,11 @@ def ConfomalMappingCPWCalculate(heights_above, heights_below, effsLA, effsLB, Wi
     xc = xb + D
     effsLA = effsLA
     effsLB = effsLB
+    def customSinh(x):
+        if x > 10:
+            return 0
+        else:
+            return 1/math.sinh(x)
 
     # Function to find C0
     def findC0(xa, xb, xc):
@@ -56,19 +61,20 @@ def ConfomalMappingCPWCalculate(heights_above, heights_below, effsLA, effsLB, Wi
         coeffInSideBracketsb = (math.pi*xb)/(2*height)
         coeffInSideBracketsc = (math.pi*xc)/(2*height)
 
-        coeffa = Decimal(numpy.sinh(coeffInSideBracketsa))
-        coeffasquared = Decimal(coeffa**2)
+        coeffa = numpy.sinh(coeffInSideBracketsa)
+        coeffasquared = coeffa**2
 
         print("coeffInSideBracketsb is: ", coeffInSideBracketsb)
-        coeffb = Decimal(math.sinh(coeffInSideBracketsb))
+        coeffb = math.sinh(coeffInSideBracketsb)
         print("coeffb is: ", coeffb)
-        coeffbsquared = Decimal(coeffb**2)
-        coeffc = Decimal(math.sinh(coeffInSideBracketsc))
-        coeffcsquared = Decimal(coeffc**2)
+        coeffbsquared = coeffb**2
 
-        kp1 = Decimal(coeffc/coeffb)
-        kInsideSqurt = Decimal((coeffbsquared-coeffasquared)/(coeffcsquared-coeffasquared))
-        kp2 = Decimal(math.sqrt(kInsideSqurt))
+        coeffc = customSinh(coeffInSideBracketsc)
+        coeffcsquared = coeffc**2
+
+        kp1 = 1.0/coeffb
+        kInsideSqurt = (coeffbsquared-coeffasquared)/(1-coeffasquared*coeffcsquared)
+        kp2 = math.sqrt(kInsideSqurt)
         k = kp1*kp2
         ksquared = Decimal(k**2)
         kder = math.sqrt(1-ksquared)
@@ -76,8 +82,8 @@ def ConfomalMappingCPWCalculate(heights_above, heights_below, effsLA, effsLB, Wi
         kder = float(kder)
         print("k is: ", k)
         print("kder is: ", kder)
-        K = Decimal(ellipk(k))
-        Kder = Decimal(ellipk(kder))
+        K = ellipk(k)
+        Kder = ellipk(kder)
 
         Kcoeff = Decimal(Kder/K)
         Kcoefffloat = float(Kcoeff)
@@ -198,7 +204,12 @@ def ConfomalMappingCPWCalculateGroundLayerIncluded(heights_above, heights_below,
     xc = xb + D
     effsLA = effsLA
     effsLB = effsLB
-
+    def customSinh(x):
+        if x > 10:
+            return 0
+        else:
+            return 1/math.sinh(x)
+            
     # Function to find C0
     def findC0(xa, xb, xc):
         xasquared = xa**2
@@ -235,11 +246,11 @@ def ConfomalMappingCPWCalculateGroundLayerIncluded(heights_above, heights_below,
         coeffasquared = coeffa**2
         coeffb = math.sinh(coeffInSideBracketsb)
         coeffbsquared = coeffb**2
-        coeffc = math.sinh(coeffInSideBracketsc)
+        coeffc = customSinh(coeffInSideBracketsc)
         coeffcsquared = coeffc**2
 
-        kp1 = coeffc/coeffb
-        kInsideSqurt = (coeffbsquared-coeffasquared)/(coeffcsquared-coeffasquared)
+        kp1 = 1.0/coeffb
+        kInsideSqurt = (coeffbsquared-coeffasquared)/(1-coeffasquared*coeffcsquared)
         kp2 = math.sqrt(kInsideSqurt)
         k = kp1*kp2
         ksquared = k**2

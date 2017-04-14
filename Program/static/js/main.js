@@ -47,9 +47,6 @@ function attachChangeEventToLayerInput(layerName) {
 
 
 $(document).ready(function() {
-  //debugger;
-  var select_layer = $("#select_layers_above");
-  console.log(select_layer);
   attachChangeEventToLayerInput('above');
 })
 

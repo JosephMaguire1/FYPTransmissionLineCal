@@ -156,6 +156,20 @@ def ConfomalMappingMicrostripCalculate(heights_above, heights_below, effsLA, eff
             height = heightsLB[i-1] + heights_below[i]
             heightsLB.append(height)
 
+    print("heightsLB before is:", heightsLB)
+    print("effsLB before is:", effsLB)
+    if heights_below_length == 1:
+        height = heightsLB[0]
+        heightDiv2 = height/2
+        heightsLB = []
+        heightsLB.append(heightDiv2)
+        heightsLB.append(height)
+        eff = effsLB[0]
+        effsLB.append(eff)
+        heights_below_length = 2
+    print("heightsLB after is:", heightsLB)
+    print("effsLB before is:", effsLB)
+
     OverallHeightOfLayersBelow = heightsLB[heights_below_length-1]
     print("OverallHeightOfLayersBelow is: ", OverallHeightOfLayersBelow)
 
@@ -176,7 +190,7 @@ def ConfomalMappingMicrostripCalculate(heights_above, heights_below, effsLA, eff
     print("Wef is", Wef)
 
     if W/OverallHeightOfLayersBelow > 1:
-        i = len(heights_below)
+        i = len(heightsLB)
         fillingFactorsLB = []
         fillingFactorsLBDividedByEff = []
 
@@ -285,7 +299,7 @@ def ConfomalMappingMicrostripCalculate(heights_above, heights_below, effsLA, eff
         print("effRelativePermittivityForWholeStructure is: ", effRelativePermittivityForWholeStructure)
         print("charateristicImpedance is: ", charateristicImpedance)
     else:
-        i = len(heights_below)
+        i = len(heightsLB)
         fillingFactorsLB = []
         fillingFactorsLBDividedByEff = []
 
