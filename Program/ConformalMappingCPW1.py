@@ -37,8 +37,9 @@ def ConfomalMappingCPWCalculate(heights_above, heights_below, effsLA, effsLB, Wi
         k = kp1*kp2
         ksquared = k**2
         kder = math.sqrt(1-ksquared)
-        K = ellipk(k)
-        Kder = ellipk(kder)
+        kdersquared = kder**2
+        K = ellipk(ksquared)
+        Kder = ellipk(kdersquared)
         C0 = (4*relativePermittivityOfFreeSpace*Kder)/K
         print("---------------")
         print("Calculating C0")
@@ -57,6 +58,9 @@ def ConfomalMappingCPWCalculate(heights_above, heights_below, effsLA, effsLB, Wi
         print("--------------")
         print("height is:", height)
         print("math.pi is ", math.pi)
+        print("xa is", xa)
+        print("xb is", xb)
+        print("xc is", xc)
         coeffInSideBracketsa = (math.pi*xa)/(2*height)
         coeffInSideBracketsb = (math.pi*xb)/(2*height)
         coeffInSideBracketsc = (math.pi*xc)/(2*height)
@@ -76,19 +80,17 @@ def ConfomalMappingCPWCalculate(heights_above, heights_below, effsLA, effsLB, Wi
         kInsideSqurt = (coeffbsquared-coeffasquared)/(1-coeffasquared*coeffcsquared)
         kp2 = math.sqrt(kInsideSqurt)
         k = kp1*kp2
-        ksquared = Decimal(k**2)
+        ksquared = k**2
         kder = math.sqrt(1-ksquared)
-        k = float(k)
-        kder = float(kder)
         print("k is: ", k)
         print("kder is: ", kder)
-        K = ellipk(k)
-        Kder = ellipk(kder)
+        kdersquared = kder**2
+        K = ellipk(ksquared)
+        Kder = ellipk(kdersquared)
 
-        Kcoeff = Decimal(Kder/K)
-        Kcoefffloat = float(Kcoeff)
-        print("Kcoefffloat is:", Kcoefffloat)
-        C = 2*relativePermittivityOfFreeSpace*eff*Kcoefffloat
+        Kcoeff = Kder/K
+
+        C = 2*relativePermittivityOfFreeSpace*eff*Kcoeff
         print("---------------")
         print("height is:", height)
         print("coeffa is:", coeffa)
@@ -191,6 +193,8 @@ def ConfomalMappingCPWCalculate(heights_above, heights_below, effsLA, effsLB, Wi
     effSquareRoot = math.sqrt(effRelativePermittivityForWholeStructure)
     PhaseVelocity = SpeedOfLight/effSquareRoot
     charateristicImpedance = 1/(OverallLineCap*PhaseVelocity)
+    effRelativePermittivityForWholeStructure = format(effRelativePermittivityForWholeStructure, '.2f')
+    charateristicImpedance = format(charateristicImpedance, '.2f')
 
     return [effRelativePermittivityForWholeStructure, charateristicImpedance]
 
@@ -209,7 +213,7 @@ def ConfomalMappingCPWCalculateGroundLayerIncluded(heights_above, heights_below,
             return 0
         else:
             return 1/math.sinh(x)
-            
+
     # Function to find C0
     def findC0(xa, xb, xc):
         xasquared = xa**2
@@ -221,8 +225,9 @@ def ConfomalMappingCPWCalculateGroundLayerIncluded(heights_above, heights_below,
         k = kp1*kp2
         ksquared = k**2
         kder = math.sqrt(1-ksquared)
-        K = ellipk(k)
-        Kder = ellipk(kder)
+        kdersquared = kder**2
+        K = ellipk(ksquared)
+        Kder = ellipk(kdersquared)
         C0 = (4*relativePermittivityOfFreeSpace*Kder)/K
         print("---------------")
         print("Calculating C0")
@@ -255,8 +260,9 @@ def ConfomalMappingCPWCalculateGroundLayerIncluded(heights_above, heights_below,
         k = kp1*kp2
         ksquared = k**2
         kder = math.sqrt(1-ksquared)
-        K = ellipk(k)
-        Kder = ellipk(kder)
+        kdersquared = kder**2
+        K = ellipk(ksquared)
+        Kder = ellipk(kdersquared)
 
         Kcoeff = Kder/K
 
@@ -379,5 +385,7 @@ def ConfomalMappingCPWCalculateGroundLayerIncluded(heights_above, heights_below,
     effSquareRoot = math.sqrt(effRelativePermittivityForWholeStructure)
     PhaseVelocity = SpeedOfLight/effSquareRoot
     charateristicImpedance = 1/(OverallLineCap*PhaseVelocity)
+    effRelativePermittivityForWholeStructure = format(effRelativePermittivityForWholeStructure, '.2f')
+    charateristicImpedance = format(charateristicImpedance, '.2f')
 
     return [effRelativePermittivityForWholeStructure, charateristicImpedance]

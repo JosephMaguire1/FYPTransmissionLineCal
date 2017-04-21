@@ -68,7 +68,7 @@ function validateForm() {
   //var layers_permittivity = $('input[name=layers_heights]').value;
   //console.log(layers_permittivity);
   //for (var i in layers_permittivity) {
-//    if (isNaN(parseInt(layers_permittivity[i]))) {
+  //  if (isNaN(parseInt(layers_permittivity[i]))) {
   //    errors.push("Relative Permittivity of each layer must be an number");
   //  }
   //}

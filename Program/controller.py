@@ -37,12 +37,20 @@ def Microstrip():
     layers_permittivity = request.args.getlist('layers_permittivity')
     layers_permittivity.reverse()
     Width_Of_Track = request.args.get('Width_Of_Track')
-
+    Thickness_Of_Conductor = request.args.get('Thickness_Of_Conductor')
     if heights:
         try:
             heights = [float(x) for x in heights]
         except ValueError:
             abort(404)
+
+    if Thickness_Of_Conductor:
+        try:
+            Thickness_Of_Conductor = float(Thickness_Of_Conductor)
+        except ValueError:
+            abort(404)
+    else:
+        Thickness_Of_Conductor = 0
 
     if conducting_trace_layer:
         try:
@@ -68,25 +76,25 @@ def Microstrip():
         except ValueError:
             abort(404)
 
-    if not heights_above:
-        height = 10
-        heights_above.append(height)
+    #if not heights_above:
+    #    height = 10
+    #    heights_above.append(height)
 
-    if not eff_above:
-        eff = 1
-        eff_above.append(eff)
+    #if not eff_above:
+    #    eff = 1
+    #    eff_above.append(eff)
 
     print("heights_above is:", heights_above)
     print("heights_below is:", heights_below)
     print("eff_above is:", eff_above)
     print("eff_below is:", eff_below)
 
-    if ( heights_above and heights_below and eff_above and eff_below and Width_Of_Track ):
-        answer = ConfomalMappingMicrostripCalculate(heights_above, heights_below, eff_above, eff_below, Width_Of_Track)
-        return ViewMicrostrip.render(answer)
+    if ( heights_below and eff_below and Width_Of_Track ):
+        answer = ConfomalMappingMicrostripCalculate(heights_above, heights_below, eff_above, eff_below, Width_Of_Track, Thickness_Of_Conductor)
+        return ViewMicrostrip.render(answer, heights, layers_permittivity, Width_Of_Track, Thickness_Of_Conductor)
     else:
         answer = [' ', ' ']
-        return ViewMicrostrip.render(answer)
+        return ViewMicrostrip.render(answer, heights, layers_permittivity, Width_Of_Track, Thickness_Of_Conductor)
 
 @app.route('/CPW')
 def CPW():
@@ -149,30 +157,28 @@ def CPW():
                 abort(404)
 
         if not heights_above:
-            height = 10
-            heights_above.append(height)
+            heights_above = []
 
         if not eff_above:
-            eff = 1
-            eff_above.append(eff)
+            eff_above = []
 
         if not grounded_layer:
             grounded_layer = "No"
 
         if grounded_layer == "No":
-            if ( heights_above and heights_below and eff_above and eff_below and Width_Of_Track and Width_Of_Gap and Width_Of_Ground):
+            if ( heights_below and eff_below and Width_Of_Track and Width_Of_Gap and Width_Of_Ground):
                 answer = ConfomalMappingCPWCalculate(heights_above, heights_below, eff_above, eff_below, Width_Of_Track, Width_Of_Gap, Width_Of_Ground)
-                return ViewCPW.render(answer)
+                return ViewCPW.render(answer, heights, layers_permittivity, Width_Of_Track, Width_Of_Gap, Width_Of_Ground)
             else:
                 answer = [' ', ' ']
-                return ViewCPW.render(answer)
+                return ViewCPW.render(answer, heights, layers_permittivity, Width_Of_Track, Width_Of_Gap, Width_Of_Ground)
         else:
             if ( heights_above and heights_below and eff_above and eff_below and Width_Of_Track and Width_Of_Gap and Width_Of_Ground):
                 answer = ConfomalMappingCPWCalculateGroundLayerIncluded(heights_above, heights_below, eff_above, eff_below, Width_Of_Track, Width_Of_Gap, Width_Of_Ground)
-                return ViewCPW.render(answer)
+                return ViewCPW.render(answer, heights, layers_permittivity, Width_Of_Track, Width_Of_Gap, Width_Of_Ground)
             else:
                 answer = [' ', ' ']
-                return ViewCPW.render(answer)
+                return ViewCPW.render(answer, heights, layers_permittivity, Width_Of_Track, Width_Of_Gap, Width_Of_Ground)
 
 @app.route('/MicrostripCalculations')
 def MicrostripCalculations():

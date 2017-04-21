@@ -84,9 +84,9 @@ def fillingFactor1WGH(W, OverallHeightOfLayersBelow, height, A):
     print("math.log(A) is:", math.log(A))
     print("2*(math.log((8*OverallHeightOfLayersBelow)/W)) is:", 2*(math.log((8*OverallHeightOfLayersBelow)/W)))
     print("(W/(8*height*OverallHeightOfLayersBelow))*(math.sqrt(A)) is:", (W/(8*height*OverallHeightOfLayersBelow))*(math.sqrt(A)))
-    print("math.acos((W/(8*height*OverallHeightOfLayersBelow))*(math.sqrt(A))) is:", math.acos((W/(8*height*OverallHeightOfLayersBelow))*(math.sqrt(A))))
-    print("1+(Pi/4)-(1/2)*(math.acos((W/(8*height*OverallHeightOfLayersBelow))*(math.sqrt(A)))) is:", 1+(Pi/4)-(1/2)*(math.acos((W/(8*height*OverallHeightOfLayersBelow))*(math.sqrt(A)))))
-    Q = ((math.log(A))/(2*(math.log((8*OverallHeightOfLayersBelow)/W))))*(1+(Pi/4)-(1/2)*(math.acos((W/(8*height*OverallHeightOfLayersBelow))*(math.sqrt(A)))))
+    print("math.acos((W/(8*height*OverallHeightOfLayersBelow))*(math.sqrt(A))) is:", math.acos((W/(8*height*OverallHeightOfLayersBelow))*(math.sqrt(abs(A)))))
+    print("1+(Pi/4)-(1/2)*(math.acos((W/(8*height*OverallHeightOfLayersBelow))*(math.sqrt(A)))) is:", 1+(Pi/4)-(1/2)*(math.acos((W/(8*height*OverallHeightOfLayersBelow))*(math.sqrt(abs(A))))))
+    Q = ((math.log(A))/(2*(math.log((8*OverallHeightOfLayersBelow)/W))))*(1+(Pi/4)-(1/2)*(math.acos((W/(8*height*OverallHeightOfLayersBelow))*(math.sqrt(abs(A))))))
     return Q
 
 def fillingFactorMWGH(Qminus1, W, OverallHeightOfLayersBelow):
@@ -140,7 +140,7 @@ def fillingFactorLayersAboveWGH(Qminus1, W, OverallHeightOfLayersBelow, height, 
     return Q
 
 
-def ConfomalMappingMicrostripCalculate(heights_above, heights_below, effsLA, effsLB, Width_Of_Track):
+def ConfomalMappingMicrostripCalculate(heights_above, heights_below, effsLA, effsLB, Width_Of_Track, Thickness_Of_Conductor):
     print("Using This Method")
     W = Width_Of_Track
     print("W is:", W)
@@ -185,9 +185,10 @@ def ConfomalMappingMicrostripCalculate(heights_above, heights_below, effsLA, eff
             heightsLA.append(height)
     print("heightsLA is:", heightsLA)
 
-    a = math.log(17.08*((W/(2*OverallHeightOfLayersBelow))+0.92))
-    Wef = W + (2*OverallHeightOfLayersBelow/Pi)*(a)
-    print("Wef is", Wef)
+    if Thickness_Of_Conductor > 0: # Microstrip and slotline Third edition page 96
+        Wef = W + (2*OverallHeightOfLayersBelow/Pi)*(math.log(17.08*((W/(2*OverallHeightOfLayersBelow))+0.92))) + (1.25/Pi)*(Thickness_Of_Conductor)*(1+math.log((2*OverallHeightOfLayersBelow)/(Thickness_Of_Conductor)))
+    else:
+        Wef = W + (2*OverallHeightOfLayersBelow/Pi)*(math.log(17.08*((W/(2*OverallHeightOfLayersBelow))+0.92)))
 
     if W/OverallHeightOfLayersBelow > 1:
         i = len(heightsLB)
@@ -296,6 +297,8 @@ def ConfomalMappingMicrostripCalculate(heights_above, heights_below, effsLA, eff
         print("effectivePermittivityLACoeff is: ", effectivePermittivityLACoeff)
         effRelativePermittivityForWholeStructure = effectivePermittivityLACoeff + effectivePermittivityLBCoeff
         charateristicImpedance = ((120*Pi)/(math.sqrt(effRelativePermittivityForWholeStructure)))*(OverallHeightOfLayersBelow/Wef)
+        effRelativePermittivityForWholeStructure = format(effRelativePermittivityForWholeStructure, '.2f')
+        charateristicImpedance = format(charateristicImpedance, '.2f')
         print("effRelativePermittivityForWholeStructure is: ", effRelativePermittivityForWholeStructure)
         print("charateristicImpedance is: ", charateristicImpedance)
     else:
@@ -392,6 +395,8 @@ def ConfomalMappingMicrostripCalculate(heights_above, heights_below, effsLA, eff
         print("effectivePermittivityLACoeff is: ", effectivePermittivityLACoeff)
         effRelativePermittivityForWholeStructure = effectivePermittivityLACoeff + effectivePermittivityLBCoeff
         charateristicImpedance = ((60)/(math.sqrt(effRelativePermittivityForWholeStructure)))*(math.log((8*OverallHeightOfLayersBelow)/(W)))
+        effRelativePermittivityForWholeStructure = format(effRelativePermittivityForWholeStructure, '.2f')
+        charateristicImpedance = format(charateristicImpedance, '.2f')
         print("effRelativePermittivityForWholeStructure is: ", effRelativePermittivityForWholeStructure)
         print("charateristicImpedance is: ", charateristicImpedance)
     return [effRelativePermittivityForWholeStructure, charateristicImpedance]
