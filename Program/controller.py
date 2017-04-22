@@ -17,15 +17,17 @@ from ConformalMappingMicrostrip1 import ConfomalMappingMicrostripCalculate
 from ConformalMappingCPW1 import ConfomalMappingCPWCalculate
 from ConformalMappingCPW1 import ConfomalMappingCPWCalculateGroundLayerIncluded
 
+BAD_REQUEST = 400
+
 
 @app.route('/')
 def Home():
     return View.render()
 
-@app.errorhandler(400)
-def custom400(error):
+@app.errorhandler(BAD_REQUEST)
+def custom_bad_request(error):
     response = jsonify({'message': error.description})
-    response.status_code = 404
+    response.status_code = BAD_REQUEST
     response.status = 'error.Bad Request'
     return response
 
@@ -42,13 +44,13 @@ def Microstrip():
         try:
             heights = [float(x) for x in heights]
         except ValueError:
-            abort(404)
+            abort(BAD_REQUEST, 'Invalid heights: {}'.format(heights))
 
     if Thickness_Of_Conductor:
         try:
             Thickness_Of_Conductor = float(Thickness_Of_Conductor)
         except ValueError:
-            abort(404)
+            abort(BAD_REQUEST, 'Invalid Thickness_Of_Conductor: '.format(Thickness_Of_Conductor))
     else:
         Thickness_Of_Conductor = 0
 
@@ -56,7 +58,7 @@ def Microstrip():
         try:
             conducting_trace_layer = int(conducting_trace_layer)
         except ValueError:
-            abort(404)
+            abort(BAD_REQUEST, 'Invalid conducting_trace_layer: {}'.format(conducting_trace_layer))
 
     heights_below = heights[0:conducting_trace_layer]
     heights_above = heights[conducting_trace_layer:]
@@ -65,7 +67,7 @@ def Microstrip():
         try:
             layers_permittivity = [float(x) for x in layers_permittivity]
         except ValueError:
-            abort(404)
+            abort(BAD_REQUEST, 'Invalid layers_permittivity: {}' .format(layers_permittivity))
 
     eff_below = layers_permittivity[0:conducting_trace_layer]
     eff_above = layers_permittivity[conducting_trace_layer:]
@@ -74,15 +76,21 @@ def Microstrip():
         try:
             Width_Of_Track = float(Width_Of_Track)
         except ValueError:
-            abort(404)
+            abort(BAD_REQUEST, 'Invalid Width_Of_Track: {}'.format(Width_Of_Track))
 
-    #if not heights_above:
-    #    height = 10
-    #    heights_above.append(height)
+    print("----------------------------------------")
+    print("heights_above is:", heights_above)
+    print("eff_above is:", eff_above)
 
-    #if not eff_above:
-    #    eff = 1
-    #    eff_above.append(eff)
+    if not heights_above:
+        heights_above = [100]
+
+    if not eff_above:
+        eff_above = [1]
+
+    print("heights_above is:", heights_above)
+    print("eff_above is:", eff_above)
+    print("----------------------------------------")
 
     print("heights_above is:", heights_above)
     print("heights_below is:", heights_below)
@@ -112,13 +120,13 @@ def CPW():
             try:
                 heights = [float(x) for x in heights]
             except ValueError:
-                abort(404)
+                abort(BAD_REQUEST, 'Invalid heights: {}'.format(heights))
 
         if conducting_trace_layer:
             try:
                 conducting_trace_layer = int(conducting_trace_layer)
             except ValueError:
-                abort(404)
+                abort(BAD_REQUEST, 'Invalid conducting_trace_layer: {}'.format(conducting_trace_layer))
 
         heights_below = heights[0:conducting_trace_layer]
         heights_above = heights[conducting_trace_layer:]
@@ -130,7 +138,7 @@ def CPW():
             try:
                 layers_permittivity = [float(x) for x in layers_permittivity]
             except ValueError:
-                abort(404)
+                abort(BAD_REQUEST, 'Invalid layers_permittivity: {}'.format(layers_permittivity))
 
         eff_below = layers_permittivity[0:conducting_trace_layer]
         eff_above = layers_permittivity[conducting_trace_layer:]
@@ -142,25 +150,19 @@ def CPW():
             try:
                 Width_Of_Track = float(Width_Of_Track)
             except ValueError:
-                abort(404)
+                abort(BAD_REQUEST, 'Invalid Width_Of_Track: {}'.format(Width_Of_Track))
 
         if Width_Of_Gap:
             try:
                 Width_Of_Gap = float(Width_Of_Gap)
             except ValueError:
-                abort(404)
+                abort(BAD_REQUEST, 'Invalid Width_Of_Gap: {}'.format(Width_Of_Gap))
 
         if Width_Of_Ground:
             try:
                 Width_Of_Ground = float(Width_Of_Ground)
             except ValueError:
-                abort(404)
-
-        if not heights_above:
-            heights_above = []
-
-        if not eff_above:
-            eff_above = []
+                abort(BAD_REQUEST, 'Invalid Width_Of_Ground: {}'.format(Width_Of_Ground))
 
         if not grounded_layer:
             grounded_layer = "No"

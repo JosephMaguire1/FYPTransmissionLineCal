@@ -60,10 +60,12 @@ function validateForm() {
     errors.push("Width of trace (S) must be an number");
   }
 
-  //var layers_permittivity = $('input[name="layers_heights[]"]').map(function(){
-  //    return this.value
-  //}).get()
-  //alert(layers_permittivity)
+  //$('input[name="layers_heights"]').each(function(){
+  //  if ($(this).is(":visible") && isNaN(parseInt(this.value))) {
+  //    errors.push('Layer Height "' + this.value + '" must be a number');
+  //  }
+  //}
+
   //http://stackoverflow.com/questions/13916661/get-values-of-all-textboxes-with-same-name-attributes-in-jquery
   //var layers_permittivity = $('input[name=layers_heights]').value;
   //console.log(layers_permittivity);
@@ -75,8 +77,7 @@ function validateForm() {
 
   if (errors.length == 0) {
     return true
-  }
-  else {
+  } else {
     var errorMessage = "Errors are:\n" + errors.join("\n")
     alert(errorMessage)
     return false
