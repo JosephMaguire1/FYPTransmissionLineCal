@@ -13,9 +13,9 @@ from view import ViewCPW
 from view import ViewMicrostripCalculations
 from view import ViewCPWCalculations
 from collections import defaultdict
-from ConformalMappingMicrostrip1 import ConfomalMappingMicrostripCalculate
-from ConformalMappingCPW1 import ConfomalMappingCPWCalculate
-from ConformalMappingCPW1 import ConfomalMappingCPWCalculateGroundLayerIncluded
+from ConformalMappingMicrostrip import ConfomalMappingMicrostripCalculate
+from ConformalMappingCPW import ConfomalMappingCPWCalculate
+from ConformalMappingCPW import ConfomalMappingCPWCalculateGroundLayerIncluded
 
 BAD_REQUEST = 400
 
@@ -60,14 +60,14 @@ def Microstrip():
         except ValueError:
             abort(BAD_REQUEST, 'Invalid conducting_trace_layer: {}'.format(conducting_trace_layer))
 
-    heights_below = heights[0:conducting_trace_layer]
-    heights_above = heights[conducting_trace_layer:]
-
     if layers_permittivity:
         try:
             layers_permittivity = [float(x) for x in layers_permittivity]
         except ValueError:
             abort(BAD_REQUEST, 'Invalid layers_permittivity: {}' .format(layers_permittivity))
+
+    heights_below = heights[0:conducting_trace_layer]
+    heights_above = heights[conducting_trace_layer:]
 
     eff_below = layers_permittivity[0:conducting_trace_layer]
     eff_above = layers_permittivity[conducting_trace_layer:]
@@ -78,24 +78,11 @@ def Microstrip():
         except ValueError:
             abort(BAD_REQUEST, 'Invalid Width_Of_Track: {}'.format(Width_Of_Track))
 
-    print("----------------------------------------")
-    print("heights_above is:", heights_above)
-    print("eff_above is:", eff_above)
-
     if not heights_above:
         heights_above = [100]
 
     if not eff_above:
         eff_above = [1]
-
-    print("heights_above is:", heights_above)
-    print("eff_above is:", eff_above)
-    print("----------------------------------------")
-
-    print("heights_above is:", heights_above)
-    print("heights_below is:", heights_below)
-    print("eff_above is:", eff_above)
-    print("eff_below is:", eff_below)
 
     if ( heights_below and eff_below and Width_Of_Track ):
         answer = ConfomalMappingMicrostripCalculate(heights_above, heights_below, eff_above, eff_below, Width_Of_Track, Thickness_Of_Conductor)
@@ -131,8 +118,6 @@ def CPW():
         heights_below = heights[0:conducting_trace_layer]
         heights_above = heights[conducting_trace_layer:]
         heights_below.reverse()
-        print("heights_above is:", heights_above)
-        print("heights_below is:", heights_below)
 
         if layers_permittivity:
             try:
@@ -143,8 +128,6 @@ def CPW():
         eff_below = layers_permittivity[0:conducting_trace_layer]
         eff_above = layers_permittivity[conducting_trace_layer:]
         eff_below.reverse()
-        print("eff_above is:", eff_above)
-        print("eff_below is:", eff_below)
 
         if Width_Of_Track:
             try:

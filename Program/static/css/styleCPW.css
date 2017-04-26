@@ -2,7 +2,6 @@ body {
   background-color: #f2f2f2 !important;
   margin: 0;
   min-height: 100% !important;
-  overflow-y: scroll;
 }
 
 .fix_bar {
@@ -14,6 +13,10 @@ body {
     position: relative;
     color: #8effee !important;
     margin: 0 0 0 0 !important;
+}
+
+.CPWLogoImage {
+  max-width: 850px;
 }
 
 .maincontainer {
@@ -42,12 +45,12 @@ body {
   min-width: 500px
 }
 
-.Microstrip_Image {
+.CPW_Image {
     height: 200px;
     padding: 0px;
 }
 
-.Trace_Microstrip_Image {
+.Trace_CPW_Image {
   height: 85px;
   position: absolute;
   margin-top: 60px;
@@ -83,20 +86,17 @@ body {
 }
 
 .select_layers {
-  /*rounded*/
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
-  /*colour*/
   color: #000000;
-  /*dimensions*/
-  width: 190px;
+  width: 230px;
   text-align-last: center;
   background-color: #3b8ec2;
 }
 
 .layerbox1to9 {
-  margin-left: 8.5px;
+  margin-left: 8px;
   max-width: 50px;
 }
 
@@ -110,17 +110,10 @@ body {
 }
 
 .layerbox11 {
-  margin-left: 1.5px;
-  max-width: 50px;
-}
-
-.layerbox11eff {
-  max-width: 50px;
   margin-left: 1px;
+  max-width: 50px;
 }
 
-
-/* probably can delete two below*/
 .Traceboxtrack {
   margin-left: 17px;
   max-width: 50px;
@@ -169,4 +162,21 @@ body {
 .usermanual {
   border-style: outset;
   margin-bottom: 30px
+}
+
+.question {
+  margin-top: 10px;
+  border-style: solid;
+  border-radius: 4px;
+  background-color: #e6e6e6;
+  border-color: #d9d9d9;
+  border-width: 2px;
+}
+
+.grounded_layer_question {
+  max-width: 150px;
+}
+
+.No {
+  margin-left: 4.84px !important;
 }

@@ -1,4 +1,4 @@
-{% extends "IndexMicrostripNewLayout.html" %}
+{% extends "IndexMicrostrip.html" %}
 
 {% block baseMS %}
 <div class="row maincontainer">
@@ -30,10 +30,10 @@
     <div class="row heading_top_of_page">
       Substrates Parameters
     </div>
-    <form id="myform" method="get" onsubmit="return validateForm()">
+    <form id="myform" method="get" onsubmit="return validateFormMicrostrip()">
       <div class="row number_of_layers">
         <div class="col-sm-6 height_permittivity_parameters">
-          <select class="select_layers" id="select_layers_above" onsubmit="return validateForm()">
+          <select class="select_layers" id="select_layers">
             <option>Number of Dielectric Layers</option>
             {% for i in range(1,16) %}
             <option>{{i}}</option>
@@ -41,20 +41,20 @@
           </select>
           {% for i in range(15,0,-1) %}
             {% if i in range(1,10) %}
-              <div class="layer_above_input">
-              H {{i}}: <input class="layerbox1to9" type="text" name="layers_heights" value="{{ heights[i-1] }}">
+              <div class="layer_input">
+              H {{i}}: <input class="layerbox1to9" type="text" name="layers_heights" value="{{ heights[i-1] }}"> μm
               Er {{i}}: <input class="layerbox1to9eff" type="text" name="layers_permittivity" value="{{ layers_permittivity[i-1] }}">
               <input type="radio" name="conducting_trace_layer" value="{{ i }}">
               </div>
             {% elif i == 11 %}
-              <div class="layer_above_input">
-              H {{i}}: <input class="layerbox11" type="text" name="layers_heights" value="{{ heights[i-1] }}">
+              <div class="layer_input">
+              H {{i}}: <input class="layerbox11" type="text" name="layers_heights" value="{{ heights[i-1] }}"> μm
               Er {{i}}: <input class="layerbox11eff" type="text" name="layers_permittivity" value="{{ layers_permittivity[i-1] }}">
               <input type="radio" name="conducting_trace_layer" value="{{ i }}">
               </div>
             {% else %}
-              <div class="layer_above_input">
-              H {{i}}: <input class="layerbox10" type="text" name="layers_heights" value="{{ heights[i-1] }}">
+              <div class="layer_input">
+              H {{i}}: <input class="layerbox10" type="text" name="layers_heights" value="{{ heights[i-1] }}"> μm
               Er {{i}}: <input class="layerbox10" type="text" name="layers_permittivity" value="{{ layers_permittivity[i-1] }}">
               <input type="radio" name="conducting_trace_layer" value="{{ i }}">
               </div>
@@ -62,11 +62,9 @@
           {% endfor  %}
         </div>
         <div class="col-sm-6 width_parameters">
-          Width of conductor (S): <input class="Traceboxtrack" type="text" name="Width_Of_Track" value="{{ Width_Of_Track }}"><br>
-          Thickness of conductor (t): <input class="Traceboxground" type="text" name="Thickness_Of_Conductor" value="{{ Thickness_Of_Conductor }}"><br>
+          Width of conductor (S): <input class="Traceboxtrack" type="text" name="Width_Of_Track" value="{{ Width_Of_Track }}"> μm <br>
+          Thickness of conductor (t): <input class="Traceboxground" type="text" name="Thickness_Of_Conductor" value="{{ Thickness_Of_Conductor }}"> μm <br>
           <button type="submit" class="btn btn-default calculateexportbutton" form="myform">Calculate</button><br>
-          <button id="export" class="btn btn-default calculateexportbutton">Export json</button><br>
-          <button id="import" class="btn btn-default calculateexportbutton">Import json</button><br>
         </div>
       </div>
     </form>
@@ -99,22 +97,23 @@
           <li>H = Height of the dielectric layer </li>
           <li>Er = Dielectric constant </li>
           <li>Width of Conductor (S) = Width of conductor </li>
+          <li>Thickness of Conductor (t) = Thickness of conductor </li>
         </ul>
         <h3 class="textCenter">
           User guide
         </h3>
         <p class="textLeft">
-          Choose how many dielectric substrate layers you structure has overall.<br>
+          Choose how many dielectric substrate layers you structure has overall using the drop down menu.<br>
           Enter values for the height and dielectric constant of each of the dielectric substrate layer.<br>
           Choose which layer you want to place the conductor on. You can do this by pressing the radio buttons next to the substrate parameters.<br>
           For example if you choose the radio button beside layer 4 then the conductor will be placed on top of this layer i.e. there will be 4 dielectric layers below the conductor.<br>
           Also by using the image on the top left hand side of the application you can see which layers correspond to which values you are entering.<br>
           Choose the width of the conductor for your structure as shown in the image on the top left hand side of the application.<br>
+          If your structures conductor has a finite thickness enter its value as shown in the image on the top left hand side of the application.<br>
           You can now calculate the characteristic impedance and relative effective permittivity using the "Calculate" button.<br>
         </p>
         <p>
-          You can export a json file for any particute Microstrip structure using the export button and then import these files using the import button.<br>
-          By pressing the "Explanation of Calculations" button there is a detailed expliation of how the characteristic impedance and relative effective permittivity are calculated.<br>
+          By pressing the "Calculations" button there is a detailed expliation of how the characteristic impedance and relative effective permittivity are calculated.<br>
         </p>
       </div>
       <div class="col-sm-1">
